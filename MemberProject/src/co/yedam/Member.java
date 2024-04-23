@@ -12,6 +12,10 @@ public class Member {
 		return String.format("%-8d %-10s %-15s %10s %3s", memNo, name , phone, bdate, gender);
 	}
 	
+	public String showDetail() {
+		return String.format("%-8d %-10s %-15s %10s %3s", memNo, name , phone, bdate, gender);
+	}
+	
 	public int getMemNo() {
 		return memNo;
 	}

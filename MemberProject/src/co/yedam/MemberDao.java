@@ -122,7 +122,24 @@ public class MemberDao {
 		return false;
 	}
 	
-	
+	boolean showDetail(Member mem) {
+		getConn();
+		String sql = "select * from member where mem_no = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, mem.getMemNo());
+			
+			int r = psmt.executeUpdate();
+			if(r > 0) {
+				return true;
+			} 
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		return false;
+	}
 	
 	
 }

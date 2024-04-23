@@ -14,7 +14,7 @@ public class MemberManager {
 		MemberDao dao = new MemberDao();
 		
 		while(run) {
-			System.out.println("1.회원목록 2.회원등록 3.정보수정 4.정보삭제 5.종료");
+			System.out.println("1.회원목록 2.회원등록 3.정보수정 4.정보삭제 5.");
 			System.out.print("선택 > ");
 			int menu = sc.nextInt();
 			sc.nextLine();
@@ -89,7 +89,18 @@ public class MemberManager {
 				break;
 		
 			case 5:
+				System.out.print("조회할 회원번호 >> ");
+				memNo = sc.nextInt();
+				sc.nextLine();
 				
+				mem = new Member();
+				mem.setMemNo(memNo);
+				
+				List<Member> mems1 = dao.memList();
+				System.out.println("회원번호\t 회원명\t\t 연락처\t\t 생일\t 성별");
+				for(Member mem1 : mems1) {
+					System.out.println(mem1.showDetail());
+				}
 				break;
 
 			case 6:
