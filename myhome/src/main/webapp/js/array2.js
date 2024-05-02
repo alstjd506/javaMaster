@@ -32,8 +32,17 @@ function makeList(ary = []){
 }
 makeList(empList);
 
+/*document.querySelector('#genderList').addEventListener('change', onChange);
+function onChange(){
+   let sex = document.querySelector('#genderList').value;
+   let filterList = empList.filter(emp => emp.gender == sex );
+      document.querySelector('#show tbody').innerText = null;
+      makeList(filterList)
+}*/
+
 document.querySelector('#genderList').addEventListener('change', onChange);
 function onChange(){
-	let sex = document.querySelector('#genderList option').value;
-	console.log(sex);
+   let filterList = empList.filter(emp => emp.gender == this.value );
+      document.querySelector('#show tbody').innerText = null;
+      makeList(filterList)
 }
