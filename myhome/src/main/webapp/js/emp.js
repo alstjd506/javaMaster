@@ -34,10 +34,11 @@
 	let hire = document.querySelector('#edate').value;
 	let salary = document.querySelector('#esalary').value;
 	
-	let param = '../empsave.json?job=add&name='+ename+ '&phone=' +phone 
+	let param = 'job=add&name='+ename+ '&phone=' +phone 
 			+ '&salary=' +salary+ '&hire=' +hire+'&email='+ email;
-	addHtp.open('get', param);
-	addHtp.send();
+	addHtp.open('post', '../empsave.json?job=add&name=');
+	addHtp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	addHtp.send(param); //요청정보를 바디값에 넣어쥼
 	addHtp.onload = function(){
 		let result = JSON.parse(addHtp.responseText);
 		console.log(result)
