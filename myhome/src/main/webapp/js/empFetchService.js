@@ -4,7 +4,6 @@
  */
 
  document.addEventListener("DOMContentLoaded", initForm); //화면컨텐트가 로딩되면 실행
- 
  function initForm(){
 	// Ajax호출. 목록출력.
 	svc.empList(result => {
@@ -17,6 +16,7 @@
 	);
 	//등록 이벤트 
 	document.querySelector('#addBtn').addEventListener('click', addRow);
+	document.querySelector('#selectDelBtn').addEventListener('click', chkDelRow);
  }//end of init
  
  function makeRow(emp = {}){
@@ -36,13 +36,43 @@
 	btn.addEventListener('click', deleteRow);
 	td.appendChild(btn);
 	tr.appendChild(td);
+	
+	//체크박스
+	td = document.createElement('td');
+	let chk = document.createElement('input');
+	chk.setAttribute('type', 'checkbox');
+	td.appendChild(chk);
+	tr.appendChild(td);
+	document.querySelector('#allcheck').addEventListener('change',function(){
+	 	let inp = this
+	 	document.querySelectorAll('#elist input[type="checkbox"]').forEach(function(item){
+		 	item.checked = inp.checked;
+	 })
 
+ })
 	return tr;
  } //end of makeRow
  
+ function chkDelRow(){
+	const chkRow = document.querySelectorAll('#elist input[type="checkbox"]:checked');
+	chkRow.forEach(chk => {
+		let tr = chk.parentElement.parentElement;
+		let eno = tr.dataset.no;
+		
+		svc.delEmp(eno,
+		data => {
+			if(data.retCode == 'OK'){
+					tr.remove();
+			}
+		},
+			err =>console.log(err)
+		);
+	});
+ }
+ 
 function deleteRow(){
-	let eno = this.parentElement.parentElement.dataset.no;
 	let tr = this.parentElement.parentElement;
+	let eno = tr.dataset.no;
 	
 	svc.delEmp(eno,
 	data => {
@@ -117,4 +147,5 @@ function modifyRow(){
 	newTr.querySelector('button').addEventListener('click', updateRow);
 	oldTr.parentElement.replaceChild(newTr, oldTr);
  }
+ 
  
